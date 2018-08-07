@@ -1,4 +1,4 @@
-package com.how2java.test;
+package com.how2java;
   
 import java.io.IOException;
 import java.io.InputStream;
@@ -11,6 +11,7 @@ import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
 import com.how2java.mapper.CategoryMapper;
 import com.how2java.pojo.Category;
+import com.how2java.pojo.Product;
   
 public class TestMybatis {
   
@@ -20,11 +21,7 @@ public class TestMybatis {
         SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
         SqlSession session = sqlSessionFactory.openSession();
         CategoryMapper mapper = session.getMapper(CategoryMapper.class);
- 
-//        add(mapper);
-//        delete(mapper);
-//        get(mapper);
-//        update(mapper);
+
         listAll(mapper);
              
         session.commit();
@@ -32,34 +29,16 @@ public class TestMybatis {
   
     }
  
-    private static void update(CategoryMapper mapper) {
-        Category c= mapper.get(8);
-        c.setName("�޸��˵�Category���Q");
-        mapper.update(c);
-        listAll(mapper);
-    }
- 
-    private static void get(CategoryMapper mapper) {
-        Category c= mapper.get(8);
-        System.out.println(c.getName());
-    }
- 
-    private static void delete(CategoryMapper mapper) {
-        mapper.delete(2);
-        listAll(mapper);
-    }
- 
-    private static void add(CategoryMapper mapper) {
-        Category c = new Category();
-        c.setName("�����ӵ�Category");
-        mapper.add(c);
-        listAll(mapper);
-    }
+   
   
     private static void listAll(CategoryMapper mapper) {
         List<Category> cs = mapper.list();
         for (Category c : cs) {
-            System.out.println(c.getName());
+        	System.out.println(c);
+        	List<Product> ps = c.getProducts();
+        	for (Product p : ps) {
+				System.out.println("\t"+p.getName());
+			}
         }
     }
 }
