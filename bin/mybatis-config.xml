@@ -13,7 +13,7 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
             <property name="driver" value="com.mysql.jdbc.Driver"/>
             <property name="url" value="jdbc:mysql://localhost:3306/how2java?characterEncoding=UTF-8"/>
             <property name="username" value="root"/>
-            <property name="password" value="wsljn123"/>
+            <property name="password" value="admin"/>
             </dataSource>
         </environment>
     </environments>

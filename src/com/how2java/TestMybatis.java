@@ -9,8 +9,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
-import com.how2java.mapper.CategoryMapper;
-import com.how2java.pojo.Category;
+import com.how2java.mapper.ProductMapper;
 import com.how2java.pojo.Product;
   
 public class TestMybatis {
@@ -20,25 +19,16 @@ public class TestMybatis {
         InputStream inputStream = Resources.getResourceAsStream(resource);
         SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
         SqlSession session = sqlSessionFactory.openSession();
-        CategoryMapper mapper = session.getMapper(CategoryMapper.class);
+        ProductMapper mapper = session.getMapper(ProductMapper.class);
 
-        listAll(mapper);
-             
+        List<Product> ps= mapper.list();
+        for (Product p : ps) {
+			System.out.println(p + "\t对应的分类是:\t" + p.getCategory().getName());
+		}
+
+        		
         session.commit();
         session.close();
   
-    }
- 
-   
-  
-    private static void listAll(CategoryMapper mapper) {
-        List<Category> cs = mapper.list();
-        for (Category c : cs) {
-        	System.out.println(c);
-        	List<Product> ps = c.getProducts();
-        	for (Product p : ps) {
-				System.out.println("\t"+p.getName());
-			}
-        }
     }
 }
